@@ -13,7 +13,12 @@ spring:
           predicates:
             - Path=/ws/**
           filters:
-            - StripPrefix=0
+            - name: GlobalFilter
+#      loadbalancer:
+#        instances:
+#          websocket-service:
+#            - uri: ws://localhost:9001
+#            - uri: ws://localhost:9002
 
 server:
   port: 8000

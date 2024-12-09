@@ -14,11 +14,7 @@ spring:
             - Path=/ws/**
           filters:
             - name: CustomFilter
-    loadbalancer:
-      clients:
-        instances:
-          - http://localhost:9001
-          - http://localhost:9002
+#            - RewritePath=/ws/(?<segment>.*), /ws
 
 server:
   port: 8000

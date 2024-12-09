@@ -39,6 +39,7 @@ class WebSocketRoutingFilter(
         // RoomId를 해싱하여 인스턴스 선택
         val hash = Math.abs(roomId.hashCode())
         val index = hash % instances.size
+        println("$hash hash index $index")
         val targetInstance = instances[index]
         println("WebSocketRoutingFilter: Selected game-server instance: ${targetInstance.host}:${targetInstance.port}")
 

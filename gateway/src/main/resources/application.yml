@@ -13,21 +13,15 @@ spring:
           predicates:
             - Path=/ws/**
           filters:
-            - name: GlobalFilter
-#      loadbalancer:
-#        instances:
-#          websocket-service:
-#            - uri: ws://localhost:9001
-#            - uri: ws://localhost:9002
+            - name: CustomFilter
+    loadbalancer:
+      clients:
+        instances:
+          - http://localhost:9001
+          - http://localhost:9002
 
 server:
   port: 8000
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
 logging:
   level:
     com.netflix.discovery: DEBUG

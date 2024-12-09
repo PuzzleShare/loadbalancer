@@ -1,5 +1,3 @@
-
-
 package com.puzzle.gateway
 
 import org.springframework.cloud.client.ServiceInstance
@@ -24,7 +22,6 @@ class RoomIdLoadBalancer(
             request as? Request<ServerWebExchange>
                 ?: return Mono.error(IllegalArgumentException("ServerWebExchange not found in request attributes"))
 
-        println("ddddddd ${exchange.context}")
         val roomId =
             request.context as? String
                 ?: "default"

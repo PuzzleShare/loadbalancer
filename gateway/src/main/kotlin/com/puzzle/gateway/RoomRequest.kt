@@ -5,6 +5,4 @@ import org.springframework.web.server.ServerWebExchange
 
 class RoomRequest(
     val roomId: String,
-) : Request<ServerWebExchange> {
-    override fun getContext(): ServerWebExchange = super.getContext()
-}
+) : Request<ServerWebExchange>

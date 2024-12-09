@@ -6,7 +6,6 @@ import org.springframework.cloud.client.loadbalancer.Request
 import org.springframework.cloud.client.loadbalancer.Response
 import org.springframework.cloud.loadbalancer.core.ReactorServiceInstanceLoadBalancer
 import org.springframework.cloud.loadbalancer.core.ServiceInstanceListSupplier
-import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
 import java.util.concurrent.ConcurrentHashMap
 
@@ -18,13 +17,13 @@ class RoomIdLoadBalancer(
     override fun choose(request: Request<*>?): Mono<Response<ServiceInstance>>? {
 //        request: Request<ServerWebExchange>
         // roomId 추출 (예: 쿼리 파라미터나 헤더에서)
-        val exchange =
-            request as? Request<ServerWebExchange>
-                ?: return Mono.error(IllegalArgumentException("ServerWebExchange not found in request attributes"))
 
+        println(request)
         val roomId =
-            request.context as? String
+            request?.context as? String
                 ?: "default"
+
+        println(roomId)
 
         roomServerMap[roomId]?.let {
             println("Returning cached ServiceInstance for roomId: $roomId")
@@ -45,7 +44,9 @@ class RoomIdLoadBalancer(
 
                 // 선택된 서버를 저장
                 roomServerMap[roomId] = selectedInstance
-                println("Selected and cached ServiceInstance for roomId: $roomId -> ${selectedInstance.host}:${selectedInstance.port}")
+                println(
+                    "Selected and cached ServiceInstance for roomId: $index -> $roomId -> ${selectedInstance.host}:${selectedInstance.port}",
+                )
                 DefaultResponse(selectedInstance)
             }
     }
